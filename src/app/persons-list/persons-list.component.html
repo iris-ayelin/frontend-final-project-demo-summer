@@ -1,9 +1,14 @@
+<!-- #####Custom Code####### -->
+
 <!-- Using the ngIf method to check if loading time has been passed or not -->
 <div *ngIf="showSpinner">
     <app-loading></app-loading>
 </div>
 <div *ngIf="!showSpinner">
 <!-- Using the ngIf method to check if loading time has been passed or not -->
+
+<!-- #####Custom Code####### -->
+ 
     <table mat-table [dataSource]="allPersons">
         <ng-container matColumnDef="fullName">
             <th mat-header-cell *matHeaderCellDef> Full Name </th>

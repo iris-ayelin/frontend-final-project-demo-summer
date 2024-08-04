@@ -10,28 +10,35 @@ import { Router } from '@angular/router';
 import { PhoneNumber } from '../shared/model/phone-number';
 import { PhoneType } from '../shared/model/phone-type';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingUpdateFormComponent } from '../loading-update-form/loading-update-form.component';
 
 @Component({
   selector: 'app-person-form',
   standalone: true,
   imports: [
-    CommonModule,       
+    CommonModule,
     FormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    LoadingUpdateFormComponent
   ],
   templateUrl: './person-form.component.html',
   styleUrl: './person-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonFormComponent implements OnInit { 
-  currentPerson: Person = new Person(0,'','','');
-  @ViewChild('phoneGroup') phoneGroup? : NgModelGroup;
+export class PersonFormComponent implements OnInit {
+  currentPerson: Person = new Person(0, '', '', '');
+  @ViewChild('phoneGroup') phoneGroup?: NgModelGroup;
 
   @Input()
-  id? : string;
+  id?: string;
+
+  progressValue = 0;
+  isSubmitting = false;
 
   constructor(private personService: PeronsService, private router: Router) {}
 
@@ -46,21 +53,36 @@ export class PersonFormComponent implements OnInit {
   }
 
   onSubmitRegistration() {
-    console.log("Form submitted!");
+    
+    this.isSubmitting = true;
+    
+
+    console.log('Form submitted!');
     if (this.id) {
       this.personService.update(this.currentPerson);
     } else {
-      this.personService.add(this.currentPerson)
+      this.personService.add(this.currentPerson);
     }
-    this.router.navigate(['']);
+    this.incrementProgress()
+    // Delay navigation until progress is complete
+    // this.router.navigate(['']);
+  }
+
+  async incrementProgress() {
+    setInterval (() => {
+      if (this.progressValue < 100) {
+        this.progressValue += 20;
+      }
+    }, 300);
   }
 
   addPhoneNumber() {
-    this.currentPerson.phones.push(new PhoneNumber("", PhoneType.Mobile));
+    this.currentPerson.phones.push(new PhoneNumber('', PhoneType.Mobile));
   }
 
-  removePhoneNumber(index : number) {
+  removePhoneNumber(index: number) {
     this.currentPerson.phones.splice(index, 1);
     this.phoneGroup?.control.markAsDirty();
   }
- } 
+}
+ 

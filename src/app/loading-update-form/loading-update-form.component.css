@@ -1,0 +1,15 @@
+.custom-progress-bar .mat-progress-bar-fill {
+    background: linear-gradient(
+      to right,
+      #af4c4c 0%,
+      #af824c 70%,
+      #dbf436 70%,
+      #38fd7d 100%
+    );
+    transition: width 1s ease-in-out;
+  }
+  
+  .custom-progress-bar {
+    height: 20px;
+  }
+  

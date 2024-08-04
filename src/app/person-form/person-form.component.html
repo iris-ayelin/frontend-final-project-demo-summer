@@ -59,5 +59,6 @@
             [disabled]="registrationForm.invalid || registrationForm.pristine">
             Save
         </button>
-     </div>     
+        <mat-progress-bar *ngIf="isSubmitting" class="custom-progress-bar" mode="determinate" [value]="progressValue"></mat-progress-bar> 
+     </div>        
 </form>
