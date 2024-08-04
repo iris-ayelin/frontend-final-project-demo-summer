@@ -1,6 +1,6 @@
 import { PeronsService } from './../services/perons.service';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModelGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,15 +27,13 @@ import { LoadingUpdateFormComponent } from '../loading-update-form/loading-updat
     LoadingUpdateFormComponent
   ],
   templateUrl: './person-form.component.html',
-  styleUrl: './person-form.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./person-form.component.css']
 })
 export class PersonFormComponent implements OnInit {
   currentPerson: Person = new Person(0, '', '', '');
   @ViewChild('phoneGroup') phoneGroup?: NgModelGroup;
 
-  @Input()
-  id?: string;
+  @Input() id?: string;
 
   progressValue = 0;
   isSubmitting = false;
@@ -44,36 +42,33 @@ export class PersonFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id) {
-      let personFromService = this.personService.get(parseInt(this.id));
-
+      const personFromService = this.personService.get(parseInt(this.id, 10));
       if (personFromService) {
         this.currentPerson = personFromService;
       }
     }
   }
-
+//Added 
   onSubmitRegistration() {
-    
     this.isSubmitting = true;
-    
-
     console.log('Form submitted!');
     if (this.id) {
       this.personService.update(this.currentPerson);
     } else {
       this.personService.add(this.currentPerson);
     }
-    this.incrementProgress()
-    // Delay navigation until progress is complete
-    // this.router.navigate(['']);
+    this.incrementProgress();
   }
-
-  async incrementProgress() {
-    setInterval (() => {
+//Added
+  incrementProgress() {
+    const interval = setInterval(() => {
       if (this.progressValue < 100) {
-        this.progressValue += 20;
+        this.progressValue += 25;
+      } else {
+        clearInterval(interval);
+        this.isSubmitting = false;
       }
-    }, 300);
+    }, 200);
   }
 
   addPhoneNumber() {
@@ -85,4 +80,3 @@ export class PersonFormComponent implements OnInit {
     this.phoneGroup?.control.markAsDirty();
   }
 }
- 
