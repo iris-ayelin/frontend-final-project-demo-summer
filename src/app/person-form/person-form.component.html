@@ -32,34 +32,24 @@
     <div ngModelGroup="phone" #phoneGroup="ngModelGroup">
         <div class="phone-number-title">
             <h3>Phone numbers</h3>
-            <button mat-fab type="button"
-                (click)="addPhoneNumber()">
+            <button mat-fab type="button" (click)="addPhoneNumber()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
-        <div *ngFor="let phone of currentPerson.phones; index as i"
-            class="phone-number-form">
+        <div *ngFor="let phone of currentPerson.phones; index as i" class="phone-number-form">
             <mat-form-field>
                 <mat-label>Phone number:</mat-label>
                 <input matInput [(ngModel)]="phone.number" name="phone-number-{{i}}" required>
             </mat-form-field>
-            <button
-                type="button"
-                mat-icon-button
-                (click)="removePhoneNumber(i)">
+            <button type="button" mat-icon-button (click)="removePhoneNumber(i)">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
     </div>
     <div>
-        <button
-            type="submit"
-            mat-raised-button
-            color="primary"
-            [disabled]="registrationForm.invalid || registrationForm.pristine">
+        <button type="submit" mat-raised-button color="primary" [disabled]="registrationForm.invalid || registrationForm.pristine">
             Save
         </button>
-        <!-- Connecting mat-progress-bar for the submit button -->
-        <mat-progress-bar *ngIf="isSubmitting" class="custom-progress-bar" mode="determinate" [value]="progressValue"></mat-progress-bar> 
-     </div>        
+        <app-loading-update-form *ngIf="isSubmitting" [progressValue]="progressValue"></app-loading-update-form>
+    </div>
 </form>

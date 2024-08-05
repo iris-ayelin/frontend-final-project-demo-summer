@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -9,17 +9,5 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrls: ['./loading-update-form.component.css'],
 })
 export class LoadingUpdateFormComponent {
-  progressValue = 0;
-
-  onSubmitForm() {
-    this.incrementProgress();
-  }
-
-  incrementProgress() {
-    setInterval(() => {
-      if (this.progressValue < 100) {
-        this.progressValue += 20;
-      }
-    }, 300);
-  }
+  @Input() progressValue = 0;
 }
