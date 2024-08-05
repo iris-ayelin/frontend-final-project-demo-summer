@@ -59,7 +59,7 @@
             [disabled]="registrationForm.invalid || registrationForm.pristine">
             Save
         </button>
-        <!-- Added -->
+        <!-- Connecting mat-progress-bar for the submit button -->
         <mat-progress-bar *ngIf="isSubmitting" class="custom-progress-bar" mode="determinate" [value]="progressValue"></mat-progress-bar> 
      </div>        
 </form>

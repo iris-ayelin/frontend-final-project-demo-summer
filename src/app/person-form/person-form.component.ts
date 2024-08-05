@@ -48,7 +48,7 @@ export class PersonFormComponent implements OnInit {
       }
     }
   }
-//Added 
+//update function for progress-bar
   onSubmitRegistration() {
     this.isSubmitting = true;
     console.log('Form submitted!');
@@ -59,7 +59,7 @@ export class PersonFormComponent implements OnInit {
     }
     this.incrementProgress();
   }
-//Added
+//new function for mat-progress-bar
   incrementProgress() {
     const interval = setInterval(() => {
       if (this.progressValue < 100) {

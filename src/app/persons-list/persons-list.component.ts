@@ -27,14 +27,11 @@ export class PersonsListComponent implements OnInit {
   ngOnInit(): void {
     this.allPersons = this.personService.list();
 
-    // #####Custom Code#######
-
     // Add loading time
     setTimeout(() => {
       this.showSpinner = false;
     }, 2500);
     
-    // #####Custom Code#######
 
   }
 
